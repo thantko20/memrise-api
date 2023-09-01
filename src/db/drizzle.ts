@@ -8,6 +8,7 @@ const client = postgres({
   username: "postgres",
   password: "password",
   port: 5432,
+  database: "memrise",
 });
 
 export const db = drizzle(client, { schema });
