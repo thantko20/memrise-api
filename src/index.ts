@@ -1,9 +1,11 @@
 import express from "express";
+import { apiRouter } from "./router";
 
 const app = express();
 const logger = require("pino-http");
 
 app.use(logger());
+app.use("/api", apiRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
