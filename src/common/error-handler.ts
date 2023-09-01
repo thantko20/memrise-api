@@ -2,8 +2,6 @@ import type { ErrorRequestHandler } from "express";
 import { BaseApiException } from "./api-exception";
 
 export const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
-  console.log({ err });
-
   if (err instanceof BaseApiException) {
     return res.status(err.code).json({ message: err.message });
   }
