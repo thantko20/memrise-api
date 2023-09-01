@@ -8,8 +8,9 @@ export async function getAllUsers(
 ) {
   try {
     const users = await getUsers();
-    res.send(users);
+    res.json(users);
   } catch (err) {
+    console.log(err);
     next(err);
   }
 }
