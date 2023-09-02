@@ -3,6 +3,7 @@ import pinoHttp from "pino-http";
 import { errorHandler } from "./common/error-handler";
 import { logger } from "./common/logger";
 import { apiRouter } from "./router";
+import { NotFoundException } from "./common/api-exception";
 
 const app = express();
 
@@ -24,10 +25,16 @@ app.use(
     },
   }),
 );
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use("/api", apiRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
+});
+
+app.all("*", (req, res, next) => {
+  next(new NotFoundException());
 });
 
 app.use(errorHandler);
