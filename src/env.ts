@@ -1,15 +1,16 @@
-import "dotenv";
 import { z } from "zod";
 
 const envSchema = z.object({
   NODE_ENV: z.enum(["production", "development"]),
-  BCRYPT_SALT_ROUNDS: z.coerce.number().positive(),
+  BCRYPT_SALT_ROUNDS: z.string(),
+  JWT_ACCESS_TOKEN_SECRET: z.string(),
 });
 
 type Env = z.infer<typeof envSchema>;
 
 export function env(key: keyof Env) {
-  return process.env[key];
+  const theEnv = process.env as unknown as Env;
+  return theEnv[key];
 }
 
 env.validate = function () {

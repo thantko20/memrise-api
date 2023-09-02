@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
-import { registerUser } from "./auth.service";
-import { RegisterDto } from "./auth.schema";
+import { loginUser, registerUser } from "./auth.service";
+import { LoginDto, RegisterDto } from "./auth.schema";
 
 export const registerUserHandler: RequestHandler<{}, {}, RegisterDto> = async (
   req,
@@ -8,8 +8,21 @@ export const registerUserHandler: RequestHandler<{}, {}, RegisterDto> = async (
   next,
 ) => {
   try {
-    const result = await registerUser(req.body);
-    res.status(201).json(result);
+    await registerUser(req.body);
+    res.status(201).json();
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const loginUserHandler: RequestHandler<{}, {}, LoginDto> = async (
+  req,
+  res,
+  next,
+) => {
+  try {
+    const result = await loginUser(req.body);
+    res.json(result);
   } catch (error) {
     next(error);
   }
