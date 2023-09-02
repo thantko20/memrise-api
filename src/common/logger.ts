@@ -1,5 +1,12 @@
-import { pino } from "pino";
+import { LoggerOptions, pino } from "pino";
 
-const logger = pino();
+const opts: LoggerOptions = {};
+if (process.env.NODE_ENV === "development") {
+  opts.transport = {
+    target: "pino-pretty",
+  };
+}
+
+const logger = pino(opts);
 
 export { logger };

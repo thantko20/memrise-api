@@ -104,10 +104,8 @@
 
     /* Completeness */
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
-    "skipLibCheck": true /* Skip type checking all .d.ts files. */,
-    "paths": {
-      "@/*": ["./src/*"]
-    }
+    "skipLibCheck": true /* Skip type checking all .d.ts files. */
   },
-  "compileOnSave": true
+  "compileOnSave": true,
+  "include": ["./src/**/*.ts"]
 }
