@@ -1,25 +1,20 @@
-import * as bcrypt from "bcrypt";
-
 import { BadRequestException } from "../common/api-exception";
 import { createUser, getUserByEmail } from "../users/users.service";
-import { LoginDto, RegisterDto } from "./auth.schema";
 import { signToken } from "./jwt.service";
+import { RegisterBody, LoginBody } from "./auth.schema";
 
-export const registerUser = async (data: RegisterDto) => {
+export const registerUser = async (data: RegisterBody) => {
   const existingUserWithEmail = await getUserByEmail(data.email);
   if (existingUserWithEmail) {
     throw new BadRequestException("Email already exists");
   }
 
-  const hashedPassword = await bcrypt.hash(
-    data.password,
-    parseInt(process.env.BCRYPT_SALT_ROUNDS as string),
-  );
+  const hashedPassword = await Bun.password.hash(data.password, "bcrypt");
 
   await createUser({ ...data, password: hashedPassword });
 };
 
-export const loginUser = async (data: LoginDto) => {
+export const loginUser = async (data: LoginBody) => {
   const user = await getUserByEmail(data.email);
   const invalidCredentialsException = new BadRequestException(
     "Invalid email or password",
@@ -28,7 +23,11 @@ export const loginUser = async (data: LoginDto) => {
     throw invalidCredentialsException;
   }
 
-  const isCorrectPassword = await bcrypt.compare(data.password, user.password);
+  const isCorrectPassword = await Bun.password.verify(
+    data.password,
+    user.password,
+    "bcrypt",
+  );
   if (!isCorrectPassword) {
     throw invalidCredentialsException;
   }

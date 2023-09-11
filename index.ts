@@ -2,11 +2,11 @@ import path from "path";
 import dotenv from "dotenv";
 dotenv.config({ path: path.resolve(__dirname, "..", ".env") });
 
-import { env } from "./env";
-import { logger } from "./common/logger";
-import { app } from "./app";
+import { env } from "./src/env";
+import { logger } from "./src/common/logger";
+import { app } from "./src/app";
 import { migrate } from "drizzle-orm/postgres-js/migrator";
-import { db } from "./db/drizzle";
+import { db } from "./src/db/drizzle";
 
 async function main() {
   try {

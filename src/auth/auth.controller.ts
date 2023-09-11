@@ -1,8 +1,8 @@
 import { RequestHandler } from "express";
 import { loginUser, registerUser } from "./auth.service";
-import { LoginDto, RegisterDto } from "./auth.schema";
+import { LoginBody, RegisterBody } from "./auth.schema";
 
-export const registerUserHandler: RequestHandler<{}, {}, RegisterDto> = async (
+export const registerUserHandler: RequestHandler<{}, {}, RegisterBody> = async (
   req,
   res,
   next,
@@ -15,7 +15,7 @@ export const registerUserHandler: RequestHandler<{}, {}, RegisterDto> = async (
   }
 };
 
-export const loginUserHandler: RequestHandler<{}, {}, LoginDto> = async (
+export const loginUserHandler: RequestHandler<{}, {}, LoginBody> = async (
   req,
   res,
   next,

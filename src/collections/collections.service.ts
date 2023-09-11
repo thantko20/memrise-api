@@ -1,13 +1,18 @@
-import { eq } from "drizzle-orm";
+import { SQL, and, eq } from "drizzle-orm";
 import { db } from "../db/drizzle";
-import { collections } from "../db/schema";
+import { collections, users } from "../db/schema";
 import { CreateCollection } from "./collections.schema";
 
-export const getMyCollections = async ({ userId }: { userId: number }) => {
+export const getCollections = async ({ userId }: { userId?: number }) => {
+  const where: SQL[] = [];
+  if (userId) {
+    where.push(eq(users.id, userId));
+  }
+
   return await db
     .select()
     .from(collections)
-    .where(eq(collections.userId, userId));
+    .where(and(...where));
 };
 
 export const createCollection = async (data: CreateCollection) => {
