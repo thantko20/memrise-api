@@ -25,5 +25,5 @@
     "outDir": "dist",
     "sourceMap": true
   },
-  "include": ["index.ts", "migrations/**/*", "src/**/*"]
+  "include": ["index.ts", "src/**/*"]
 }

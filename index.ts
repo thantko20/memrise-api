@@ -12,7 +12,7 @@ async function main() {
   try {
     env.validate();
     logger.info("Running migrations...");
-    await migrate(db, { migrationsFolder: "./src/db/migrations" });
+    await migrate(db, { migrationsFolder: "./migrations" });
     logger.info("Migrations completed!");
 
     const server = app.listen(3000, () => {
