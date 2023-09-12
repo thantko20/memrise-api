@@ -1,4 +1,5 @@
 import {
+  date,
   integer,
   pgTable,
   serial,
@@ -14,6 +15,9 @@ export const users = pgTable("users", {
   lastname: varchar("lastname", { length: 50 }),
   email: varchar("email", { length: 50 }).notNull().unique(),
   password: varchar("password", { length: 255 }).notNull(),
+
+  createdAt: date("created_at").defaultNow(),
+  updatedAt: date("updated_at").defaultNow(),
 });
 
 export const collections = pgTable(

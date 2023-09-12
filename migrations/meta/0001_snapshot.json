@@ -1,0 +1,204 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "id": "29dfd6bf-c4b5-4add-954e-08718e1b6d1e",
+  "prevId": "3d5ab076-a17e-42c3-939a-ced8200986e4",
+  "tables": {
+    "cards": {
+      "name": "cards",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "front": {
+          "name": "front",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "back": {
+          "name": "back",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "collection_id": {
+          "name": "collection_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "cards_collection_id_collections_id_fk": {
+          "name": "cards_collection_id_collections_id_fk",
+          "tableFrom": "cards",
+          "tableTo": "collections",
+          "columnsFrom": [
+            "collection_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "cards_front_collection_id_unique": {
+          "name": "cards_front_collection_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "front",
+            "collection_id"
+          ]
+        }
+      }
+    },
+    "collections": {
+      "name": "collections",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "collections_user_id_users_id_fk": {
+          "name": "collections_user_id_users_id_fk",
+          "tableFrom": "collections",
+          "tableTo": "users",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "collections_name_user_id_unique": {
+          "name": "collections_name_user_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "name",
+            "user_id"
+          ]
+        }
+      }
+    },
+    "users": {
+      "name": "users",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "username": {
+          "name": "username",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "firstname": {
+          "name": "firstname",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "lastname": {
+          "name": "lastname",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "password": {
+          "name": "password",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "users_username_unique": {
+          "name": "users_username_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "username"
+          ]
+        },
+        "users_email_unique": {
+          "name": "users_email_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "email"
+          ]
+        }
+      }
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  }
+}

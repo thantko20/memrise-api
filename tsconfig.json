@@ -4,12 +4,12 @@
     "types": ["bun-types"],
 
     // enable latest features
-    "lib": ["ES2020"],
-    "module": "CommonJS",
-    "target": "ES2020",
+    "lib": ["ESNext"],
+    "module": "ESNext",
+    "target": "ESNext",
 
     // if TS 5.x+
-    "moduleResolution": "Node",
+    "moduleResolution": "Bundler",
     "noEmit": false,
     // "allowImportingTsExtensions": true,
     "moduleDetection": "force",
@@ -25,5 +25,8 @@
     "outDir": "dist",
     "sourceMap": true
   },
-  "include": ["index.ts", "src/**/*"]
+  "include": ["index.ts", "src/**/*", "migrate.ts"],
+  "buildOptions": {
+    "verbose": true
+  }
 }

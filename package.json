@@ -3,14 +3,16 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "bun --watch index.ts | pino-pretty",
+    "dev": "bun --hot run index.ts | pino-pretty",
     "start": "node dist/index.js",
     "build": "tsc",
     "format:check": "prettier --check src/**/*.{js,ts}",
     "format": "prettier --write src/**/*.{js,ts}",
-    "migration:generate": "drizzle-kit generate:pg"
+    "migration:generate": "drizzle-kit generate:pg",
+    "migration:run": "bun run migrate.ts"
   },
   "keywords": [],
   "author": "",
