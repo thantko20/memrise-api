@@ -1,6 +1,14 @@
 import { RequestHandler } from "express";
-import { CreateCollectionBody } from "./collections.schema";
-import { createCollection, getCollections } from "./collections.service";
+import {
+  AddCardToCollectionBody,
+  AddCardToCollectionParams,
+  CreateCollectionBody,
+} from "./collections.schema";
+import {
+  addCardToCollection,
+  createCollection,
+  getCollections,
+} from "./collections.service";
 
 export const createCollectionHandler: RequestHandler<
   {},
@@ -23,6 +31,19 @@ export const getMyCollectionsHandler: RequestHandler = async (
   try {
     const result = await getCollections({ userId: req.user.id });
     res.json(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const addCardToCollectionHandler: RequestHandler<
+  AddCardToCollectionParams,
+  {},
+  AddCardToCollectionBody
+> = async (req, res, next) => {
+  try {
+    const result = await addCardToCollection({ ...req.body, ...req.params });
+    res.status(201).json(result);
   } catch (error) {
     next(error);
   }

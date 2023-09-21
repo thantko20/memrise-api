@@ -2,6 +2,7 @@ import { BadRequestException } from "../common/api-exception";
 import { createUser, getUserByEmail } from "../users/users.service";
 import { signToken } from "./jwt.service";
 import { RegisterBody, LoginBody } from "./auth.schema";
+import { logger } from "../common/logger";
 
 export const registerUser = async (data: RegisterBody) => {
   const existingUserWithEmail = await getUserByEmail(data.email);
@@ -15,6 +16,7 @@ export const registerUser = async (data: RegisterBody) => {
 };
 
 export const loginUser = async (data: LoginBody) => {
+  logger.debug(data);
   const user = await getUserByEmail(data.email);
   const invalidCredentialsException = new BadRequestException(
     "Invalid email or password",

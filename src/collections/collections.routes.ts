@@ -1,12 +1,23 @@
 import { Router } from "express";
 import { validate } from "../common/middlewares";
-import { createCollectionBodySchema } from "./collections.schema";
-import { createCollectionHandler } from "./collections.controller";
+import {
+  addCardToCollectionBodySchema,
+  addCardToCollectionQuerySchema,
+  createCollectionBodySchema,
+} from "./collections.schema";
+import {
+  addCardToCollectionHandler,
+  createCollectionHandler,
+} from "./collections.controller";
 
 const collectionsRouter = Router();
 
 collectionsRouter.get("/", (req, res) => {
   res.send("GET /collections");
+});
+
+collectionsRouter.get("/:id", (req, res) => {
+  res.send("GET /:id");
 });
 
 collectionsRouter.post(
@@ -15,8 +26,13 @@ collectionsRouter.post(
   createCollectionHandler,
 );
 
-collectionsRouter.get("/:id", (req, res) => {
-  res.send("GET /:id");
-});
+collectionsRouter.post(
+  "/:collectionId/cards",
+  validate({
+    body: addCardToCollectionBodySchema,
+    params: addCardToCollectionQuerySchema,
+  }),
+  addCardToCollectionHandler as any,
+);
 
 export { collectionsRouter };

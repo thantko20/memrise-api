@@ -1,5 +1,6 @@
 import jwt, { JwtPayload, SignOptions } from "jsonwebtoken";
 import { env } from "../env";
+import { logger } from "../common/logger";
 
 export const verifyToken = <P extends unknown = undefined>(token: string) => {
   return new Promise((resolve, reject) => {

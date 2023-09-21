@@ -9,7 +9,7 @@ const envSchema = z.object({
 type Env = z.infer<typeof envSchema>;
 
 export function env(key: keyof Env) {
-  const theEnv = process.env as unknown as Env;
+  const theEnv = Bun.env as unknown as Env;
   return theEnv[key];
 }
 
